@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { Text, Box, Flex, BoxProps, TableContainer, useDisclosure } from "@chakra-ui/react";
 
-import UserDrawer from "./UserDrawer";
+import UserDrawer from "../UserDrawer";
 import { UserDesktopTable, UserMobileTable } from "./UserTables";
 
 import GlobalTableFilter from "../shared/GlobalTableFilter";
