@@ -22,7 +22,7 @@ function UserDrawer({ isOpen, onClose, userId, users }: UserDrawerProps) {
     const user = users?.find(({ id }) => id === userId);
 
     return (
-        <Drawer size="md" isOpen={isOpen} placement="right" onClose={onClose}>
+        <Drawer size={{ base: "xs", md: "md" }} isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton color="body.500" />

@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { chakra, ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -20,7 +20,9 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <ChakraProvider theme={theme}>
                 <ErrorBoundary>
-                    <UsersPage />
+                    <chakra.main px={{ base: "4", md: "6" }} py="4">
+                        <UsersPage />
+                    </chakra.main>
                 </ErrorBoundary>
             </ChakraProvider>
             <ReactQueryDevtools initialIsOpen={false} />
