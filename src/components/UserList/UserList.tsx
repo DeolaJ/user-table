@@ -1,28 +1,15 @@
-import { KeyboardEvent, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
     useReactTable,
     getCoreRowModel,
     getPaginationRowModel,
     getFilteredRowModel,
     createColumnHelper,
-    flexRender,
 } from "@tanstack/react-table";
-import {
-    Text,
-    Box,
-    Flex,
-    BoxProps,
-    Table,
-    Tbody,
-    Tr,
-    Td,
-    Thead,
-    Th,
-    TableContainer,
-    useDisclosure,
-} from "@chakra-ui/react";
+import { Text, Box, Flex, BoxProps, TableContainer, useDisclosure } from "@chakra-ui/react";
 
 import UserDrawer from "./UserDrawer";
+import { UserDesktopTable, UserMobileTable } from "./UserTables";
 
 import GlobalTableFilter from "../shared/GlobalTableFilter";
 import Pagination from "../shared/Pagination";
@@ -48,6 +35,11 @@ function UserList({ users }: UserListProps) {
     function closeDrawer() {
         setUserId(Number.MIN_SAFE_INTEGER);
         onClose();
+    }
+
+    function openDrawer(userId: number) {
+        setUserId(userId);
+        onOpen();
     }
 
     const columns = useMemo(
@@ -127,7 +119,7 @@ function UserList({ users }: UserListProps) {
                     gap="2"
                     flexDir={{ base: "column", sm: "row" }}
                 >
-                    <Text fontWeight={500} color="brand.gray.900" textTransform="capitalize">
+                    <Text fontWeight={500} textTransform="capitalize">
                         {data?.length} {data?.length === 1 ? "user" : "users"}
                     </Text>
                     <GlobalTableFilter
@@ -148,69 +140,17 @@ function UserList({ users }: UserListProps) {
                 </Message>
             ) : (
                 <>
-                    <TableContainer borderRadius="lg" border="1px solid" borderColor="body.100">
-                        <Table>
-                            <Thead>
-                                {getHeaderGroups().map((headerGroup) => (
-                                    <Tr key={headerGroup.id}>
-                                        {headerGroup.headers.map((column) => (
-                                            <Th
-                                                key={column.id}
-                                                px="3"
-                                                py="5"
-                                                bgColor="body.200"
-                                                color="body.500"
-                                            >
-                                                {flexRender(
-                                                    column.column.columnDef.header,
-                                                    column.getContext(),
-                                                )}
-                                            </Th>
-                                        ))}
-                                    </Tr>
-                                ))}
-                            </Thead>
-                            <Tbody>
-                                {getRowModel().rows.map((row) => (
-                                    <Tr
-                                        key={row.id}
-                                        tabIndex={0}
-                                        onClick={() => {
-                                            setUserId(row.original.id);
-                                            onOpen();
-                                        }}
-                                        onKeyDown={(e: KeyboardEvent<HTMLTableRowElement>) => {
-                                            if (
-                                                e.key === " " ||
-                                                e.key === "Enter" ||
-                                                e.key === "Space"
-                                            ) {
-                                                e.preventDefault();
-                                                setUserId(row.original.id);
-                                                onOpen();
-                                            }
-                                        }}
-                                        cursor="pointer"
-                                        _hover={{ bgColor: "body.100" }}
-                                    >
-                                        {row.getVisibleCells().map((cell) => (
-                                            <Td
-                                                key={cell.id}
-                                                borderColor="body.100"
-                                                px="3"
-                                                py="5"
-                                                fontSize="sm"
-                                            >
-                                                {flexRender(
-                                                    cell.column.columnDef.cell,
-                                                    cell.getContext(),
-                                                )}
-                                            </Td>
-                                        ))}
-                                    </Tr>
-                                ))}
-                            </Tbody>
-                        </Table>
+                    <TableContainer
+                        borderRadius="lg"
+                        border="1px solid"
+                        borderColor={{ base: "body.200", md: "body.100" }}
+                    >
+                        <UserDesktopTable
+                            rowModel={getRowModel()}
+                            headerGroups={getHeaderGroups()}
+                            openDrawer={openDrawer}
+                        />
+                        <UserMobileTable rowModel={getRowModel()} openDrawer={openDrawer} />
                     </TableContainer>
 
                     {getPageCount() > 1 && (
