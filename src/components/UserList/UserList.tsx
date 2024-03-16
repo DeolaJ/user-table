@@ -57,7 +57,7 @@ function UserList({ users }: UserListProps) {
                 cell: (props) => props.getValue(),
             }),
             columnHelper.accessor("username", {
-                header: "User Name",
+                header: "Username",
                 cell: (props) => props.getValue(),
             }),
             columnHelper.accessor("email", {
