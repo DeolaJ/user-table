@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { KeyboardEvent, useMemo, useState } from "react";
 import {
     useReactTable,
     getCoreRowModel,
@@ -19,14 +19,17 @@ import {
     Thead,
     Th,
     TableContainer,
+    useDisclosure,
 } from "@chakra-ui/react";
+
+import UserDrawer from "./UserDrawer";
 
 import GlobalTableFilter from "../shared/GlobalTableFilter";
 import Pagination from "../shared/Pagination";
-
-import { User } from "../../types";
 import Message from "../shared/Message";
 import OutlineButton from "../shared/OutlineButton";
+
+import { User } from "../../types";
 
 interface UserListProps extends BoxProps {
     users: User[];
@@ -37,7 +40,15 @@ const columnHelper = createColumnHelper<User>();
 function UserList({ users }: UserListProps) {
     const data = useMemo(() => users, [users]);
 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const [userId, setUserId] = useState<number>(Number.MIN_SAFE_INTEGER);
     const [globalFilter, setGlobalFilter] = useState("");
+
+    function closeDrawer() {
+        setUserId(Number.MIN_SAFE_INTEGER);
+        onClose();
+    }
 
     const columns = useMemo(
         () => [
@@ -161,7 +172,27 @@ function UserList({ users }: UserListProps) {
                             </Thead>
                             <Tbody>
                                 {getRowModel().rows.map((row) => (
-                                    <Tr key={row.id} _hover={{ bgColor: "body.100" }}>
+                                    <Tr
+                                        key={row.id}
+                                        tabIndex={0}
+                                        onClick={() => {
+                                            setUserId(row.original.id);
+                                            onOpen();
+                                        }}
+                                        onKeyDown={(e: KeyboardEvent<HTMLTableRowElement>) => {
+                                            if (
+                                                e.key === " " ||
+                                                e.key === "Enter" ||
+                                                e.key === "Space"
+                                            ) {
+                                                e.preventDefault();
+                                                setUserId(row.original.id);
+                                                onOpen();
+                                            }
+                                        }}
+                                        cursor="pointer"
+                                        _hover={{ bgColor: "body.100" }}
+                                    >
                                         {row.getVisibleCells().map((cell) => (
                                             <Td
                                                 key={cell.id}
@@ -194,6 +225,13 @@ function UserList({ users }: UserListProps) {
                             my="4"
                         />
                     )}
+
+                    <UserDrawer
+                        onClose={closeDrawer}
+                        isOpen={isOpen}
+                        userId={userId}
+                        users={users}
+                    />
                 </>
             )}
         </Flex>
