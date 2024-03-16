@@ -35,7 +35,7 @@ function GlobalTableFilter({
     return (
         <InputGroup {...props}>
             <InputLeftElement pointerEvents="none">
-                <Icon as={FiSearch} h="100%" />
+                <Icon as={FiSearch} h="100%" color="gray.500" />
             </InputLeftElement>
             <Input
                 py="1.5"

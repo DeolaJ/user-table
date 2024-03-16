@@ -39,7 +39,7 @@ export const theme = extendTheme({
                         px: "3",
                         fontSize: "md",
                         border: "1px solid",
-                        borderColor: "body.500",
+                        borderColor: "body.200",
                         color: "body.500",
                         borderRadius: "lg",
                         bg: "white",
