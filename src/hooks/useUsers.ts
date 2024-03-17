@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { User } from "../types";
 
-const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const API_BASE_URL =
+    import.meta.env.VITE_APP_API_BASE_URL || "https://jsonplaceholder.typicode.com";
 const USERS_BASE_URL = `${API_BASE_URL}/users`;
 
 async function fetchUsers(): Promise<User[]> {
