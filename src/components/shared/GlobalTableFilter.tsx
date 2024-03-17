@@ -45,6 +45,7 @@ function GlobalTableFilter({
                 value={value || ""}
                 onChange={handleSearchBarChange}
                 placeholder={placeholder || "Search..."}
+                aria-label={placeholder || "Search..."}
             />
         </InputGroup>
     );
