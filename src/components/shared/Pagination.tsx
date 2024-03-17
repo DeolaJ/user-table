@@ -76,9 +76,15 @@ function Pagination({
                     aria-disabled={!canPreviousPage}
                     px={{ base: "3", md: "3.5" }}
                     py={{ base: "3", md: "2" }}
+                    aria-labelledby="previous-button-label"
                 >
                     <Icon as={ImArrowLeft2} boxSize="14px" aria-label="go to previous page" />
-                    <Text pl="3" fontSize="sm" display={{ base: "none", md: "block" }}>
+                    <Text
+                        pl="3"
+                        fontSize="sm"
+                        display={{ base: "none", md: "block" }}
+                        id="previous-button-label"
+                    >
                         Previous
                     </Text>
                 </OutlineButton>
@@ -127,8 +133,14 @@ function Pagination({
                     aria-disabled={!canNextPage}
                     px={{ base: "3", md: "3.5" }}
                     py={{ base: "3", md: "2" }}
+                    aria-labelledby="next-button-label"
                 >
-                    <Text pr="3" fontSize="sm" display={{ base: "none", md: "block" }}>
+                    <Text
+                        pr="3"
+                        fontSize="sm"
+                        display={{ base: "none", md: "block" }}
+                        id="next-button-label"
+                    >
                         Next
                     </Text>
                     <Icon as={ImArrowRight2} boxSize="14px" aria-label="go to next page" />
