@@ -21,3 +21,11 @@ To run the local server,
     npm run dev
 
 `Prettier`, `Typescript`, and `Eslint` libraries are used for formating and error checking. Install their corresponding vscode extensions to use with VSCode.
+
+### Test
+
+Some unit tests were written using `Jest` and `React testing library`.
+
+To run these tests
+
+    npm run test
