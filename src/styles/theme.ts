@@ -59,6 +59,39 @@ export const theme = extendTheme({
                 },
             },
         },
+        Select: {
+            baseStyle: {
+                field: {
+                    _placeholder: { color: "gray.400" },
+                    _invalid: {
+                        borderColor: "red.500",
+                    },
+                },
+            },
+            variants: {
+                primary: {
+                    field: {
+                        border: "1px solid",
+                        borderColor: "body.200",
+                        color: "body.500",
+                        borderRadius: "lg",
+                        bg: "white",
+                        _hover: {
+                            borderColor: "primary.300",
+                        },
+                        _focus: {
+                            borderColor: "primary.500",
+                        },
+                        _focusVisible: {
+                            borderColor: "primary.500",
+                        },
+                        _disabled: {
+                            bgColor: "gray.400",
+                        },
+                    },
+                },
+            },
+        },
     },
     styles: {
         global: {
